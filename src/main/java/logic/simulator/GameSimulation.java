@@ -2,15 +2,18 @@ package logic.simulator;
 
 
 
-import controller.DateModel;
+import models.ProgressObserver;
+import models.TimeObserver;
 
 import javax.swing.*;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.TimerTask;
 
 
-public class ThreadsController {
+
+public class GameSimulation {
 
     private int TIME_SPEED = 1000, UPDATE_SPEED = 2000;
 
@@ -24,12 +27,17 @@ public class ThreadsController {
 
     private boolean isMonitoringActive;
 
-    private DateModel dateModel;
+    private TimeObserver timeObserver;
 
-    public ThreadsController(DateModel dateModel) {
-        this.dateModel = dateModel;
+    private ProgressBarDecreaser decreaser;
+
+
+    public GameSimulation(TimeObserver timeObserver) {
+        this.timeObserver = timeObserver;
         calendar = Calendar.getInstance();
         calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
+        decreaser = new ProgressBarDecreaser();
+
     }
 
     private void monitorCountries1() {
@@ -37,7 +45,6 @@ public class ThreadsController {
         while (isMonitoringActive) {
             try {
                 Thread.sleep(UPDATE_SPEED);
-
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 break;
@@ -58,11 +65,11 @@ public class ThreadsController {
         currentDate = getCalendar().getTime();
         String dateTimeString = formatter.format(currentDate);
 
-        dateModel.setDate(dateTimeString);
+        timeObserver.setDate(dateTimeString);
     }
 
 
-    public void startMonitoring() {
+    public void toggleMonitoring() {                                 //toggle  - Włacz wyłącz
         if (!isMonitoringActive) {
             getTimer().start();
             isMonitoringActive = true;

@@ -1,17 +1,17 @@
 package controller;
 
-import logic.threadController.ThreadsController;
+import logic.simulator.GameSimulation;
+import models.TimeObserver;
 import view.MainView;
 
 public class Start {
     public static void main(String[] args) {
         MainView view = new MainView();
-        DateModel dateModel = new DateModel();
+        TimeObserver timeObserver = new TimeObserver();
 
-        ThreadsController threadsController = new ThreadsController(dateModel);
-        new MainController(view, threadsController);
+        GameSimulation gameSimulation = new GameSimulation(timeObserver);
+        new MainController(view, gameSimulation);
 
-        dateModel.addObserver(view);
-
+        timeObserver.addObserver(view);
     }
 }

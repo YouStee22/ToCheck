@@ -2,25 +2,27 @@ package view.mainPanelsCreator.mainPanels.top;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class TopPanelController {
 
-    public JPanel TOP_PANEL;
+    public JPanel top_panel;
 
-    private JButton SPEED_BUTTON, STOP_BUTTON;
+    private JButton speed_button;                                    //Czy inicjalizować tutaj pola czy konstruktor? (Konstruktor)
+    private JButton stop_button;
 
-    private Label POINTS_LABEL;
+    private Label points_label;
 
     private JLabel timeLabel;
 
-    public TopPanelController(JButton SPEED_BUTTON, JButton stopButton, JLabel timeLabel) {
-        this.SPEED_BUTTON = SPEED_BUTTON;
-        this.STOP_BUTTON = stopButton;
+    public TopPanelController(JLabel timeLabel) {
         this.timeLabel = timeLabel;
+        stop_button = new JButton("PLAY");
+        speed_button = new JButton("X1");
     }
 
     public JPanel addTime() {
-        TOP_PANEL = new JPanel(new GridLayout(1, 4));
+        top_panel = new JPanel(new GridLayout(1, 4));
         JPanel time_buttons = getTimeButtons();
         JPanel points = new JPanel(new GridLayout(2, 1));
 
@@ -29,32 +31,50 @@ public class TopPanelController {
         timeLabel.setText("00:00 01.01.2000");
         timeLabel.setFont(new Font("Arial", Font.PLAIN, 20));
 
-        POINTS_LABEL = new Label("0", Label.CENTER);
-        POINTS_LABEL.setFont(new Font("Arial", Font.BOLD, 28));
-        points.add(POINTS_LABEL);
+        points_label = new Label("0", Label.CENTER);
+        points_label.setFont(new Font("Arial", Font.BOLD, 28));
+        points.add(points_label);
 
         Label bottomLabel = new Label("PUNKTY", Label.CENTER);
         bottomLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         points.add(bottomLabel);
 
-        TOP_PANEL.add(timeLabel);
-        TOP_PANEL.add(time_buttons);
-        TOP_PANEL.add(points);
+        top_panel.add(timeLabel);
+        top_panel.add(time_buttons);
+        top_panel.add(points);
 
-        return TOP_PANEL;
+        return top_panel;
     }
-
-
 
     private JPanel getTimeButtons() {
         JPanel time_buttons = new JPanel(new FlowLayout(FlowLayout.LEFT, 0, 30));
-        SPEED_BUTTON.setPreferredSize(new Dimension(80, 40));
-        STOP_BUTTON.setPreferredSize(new Dimension(80, 40));
+        speed_button.setPreferredSize(new Dimension(80, 40));
+        stop_button.setPreferredSize(new Dimension(80, 40));
 
-        time_buttons.add(SPEED_BUTTON);
-        time_buttons.add(STOP_BUTTON);
+        time_buttons.add(speed_button);
+        time_buttons.add(stop_button);
         time_buttons.setOpaque(true);
 
         return time_buttons;
+    }
+
+
+    public void addSpeedButtonListener(ActionListener listener) {
+        speed_button.addActionListener(listener);
+    }
+
+    public void setPlayButton() {                                                       //Przeniesienie 4 matod z MainView tutaj
+        if (stop_button.getText().equals("PLAY"))
+            stop_button.setText("PAUSE");
+        else
+            stop_button.setText("PLAY");
+    }
+
+    public void addPauseButtonListener(ActionListener listener) {
+        stop_button.addActionListener(listener);
+    }
+
+    public void increaseSpeedButton(String text) {
+        speed_button.setText(text);
     }
 }

@@ -5,7 +5,7 @@ import designPatterns.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DateModel {
+public class TimeObserver {
     private String currentDate;
     private List<Observer<String>> observers = new ArrayList<>();
 

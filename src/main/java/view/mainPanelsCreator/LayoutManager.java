@@ -6,7 +6,7 @@ import view.mainPanelsCreator.mainPanels.top.TopPanelController;
 
 import javax.swing.*;
 
-public class MainController {
+public class LayoutManager {
 
     private TopPanelController top;
 
@@ -14,18 +14,35 @@ public class MainController {
 
     private MiddlePanel middlePanel;
 
-    public MainController(MainPanelController mainPanelController, JButton stopButton, JButton SPEED_BUTTON, JLabel timeLabel, JPanel middlePanel) {
-        top = new TopPanelController(SPEED_BUTTON, stopButton, timeLabel);
-        this.middlePanel = new MiddlePanel(middlePanel);
+    public LayoutManager(MainPanelController mainPanelController, JLabel timeLabel, JPanel middlePanel) {
+        top = new TopPanelController(timeLabel);
+        this.middlePanel = new MiddlePanel();
         this.mainPanelController = mainPanelController;
 
         setTopPanel();
         setCenterPanel();
     }
 
+//    public JButton getSpeed_button() {
+//        return top.getSpeed_button();
+//    }
+//
+//    public JButton getStop_button() {
+//        return top.getStop_button();
+//    }
+
+    public TopPanelController getTop() {
+        return top;
+    }
+
     public void setTopPanel() {
         mainPanelController.setTopPanel(top.addTime());
     }
+
+    public MiddlePanel getMiddlePanel() {
+        return middlePanel;
+    }
+
     public void setCenterPanel() {
         mainPanelController.setMiddleGrid(middlePanel);
     }

@@ -38,4 +38,11 @@ public class MainPanelController {
         topPanel.repaint();
     }
 
+    public void setMiddleGrid(JPanel middleGridPanel) {
+        centerPanel.removeAll();
+        centerPanel.add(middleGridPanel, BorderLayout.CENTER);
+        centerPanel.revalidate();
+        centerPanel.repaint();
+    }
+
 }

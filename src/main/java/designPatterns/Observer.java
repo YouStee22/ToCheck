@@ -1,11 +1,12 @@
 package designPatterns;
 
 //do aktualizawnia mapy i czasu
+//Do obslugi mapy
 
-public interface ObserverTimer {
-    void update(String string);
+public interface Observer<T> {
+    void update(T type);
 }
 
 
-//Do obslugi mapy
+
 
