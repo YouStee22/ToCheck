@@ -1,4 +1,4 @@
-package logic.threadController;
+package logic.simulator;
 
 
 
