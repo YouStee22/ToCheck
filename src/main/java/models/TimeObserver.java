@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimeObserver {
+
     private String currentDate;
+
     private List<Observer<String>> observers = new ArrayList<>();
 
     public void addObserver(Observer<String> observer) {

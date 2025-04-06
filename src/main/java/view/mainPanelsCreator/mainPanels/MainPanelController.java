@@ -6,6 +6,7 @@ import java.awt.*;
 public class MainPanelController {
 
     private JFrame jFrame;
+
     private JPanel topPanel, centerPanel, bottomPanel;
 
     public MainPanelController(JFrame jFrame) {

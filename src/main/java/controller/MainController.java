@@ -15,34 +15,23 @@ public class MainController {
     private GameSimulation gameSimulation;
     private ProgressBarDecreaser decreaser;
 
-
     public MainController(MainView mainView, GameSimulation gameSimulation) {
         this.mainView = mainView;
         this.gameSimulation = gameSimulation;
         this.decreaser = new ProgressBarDecreaser();
 
-        mainView.getLayoutManager().getTop().addSpeedButtonListener(new ActionListener() {          //zmiana z mainView.addSpeed... na wyciąganie
-            @Override                                                                               //wartosci z TopPanelController
-            public void actionPerformed(ActionEvent e) {
-                handleSpeedButtonClick();
-            }
-        });
+        mainView.getTopPanelController().addSpeedButtonListener(e -> handleSpeedButtonClick());
+
         gameSimulation.setCalendar();
         gameSimulation.toggleMonitoring();
 
-        mainView.getLayoutManager().getTop().addPauseButtonListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-//                mainView.getLayoutManager().getTop().setPlayButton();                                       //poprzednio mainView.setPlayButton()
-                mainView.getTopPanelController().setPlayButton();                                               //Czy tak może być? od razu zwrócić topPanel
-                gameSimulation.toggleMonitoring();
-            }
+        mainView.getTopPanelController().addPauseButtonListener(e -> {
+            mainView.getTopPanelController().setPlayButton();
+            gameSimulation.toggleMonitoring();
         });
 
         executeTask();
-//        mainView.updateProgressBar();
     }
-
 
     public void executeTask() {                                                 //Jak to przenieść do GameSimulation? bo wtedy nie będzie
         Timer timer = new Timer();                                              //dostepu do mainView? Czy GameSimulation powinno wiedzieć o
@@ -68,7 +57,6 @@ public class MainController {
             gameSimulation.setTimeSpeedAndUpdate(1000, 2000);
             mainView.getTopPanelController().increaseSpeedButton("X1");
         }
-
         gameSimulation.setCalendar();
     }
 }

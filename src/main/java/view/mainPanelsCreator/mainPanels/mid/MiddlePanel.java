@@ -12,6 +12,7 @@ import java.util.List;
 public class MiddlePanel extends JPanel {
 
     private String[] countires;
+
     private List<Observer<Integer>> observers;
 
     public MiddlePanel() {
@@ -52,6 +53,4 @@ public class MiddlePanel extends JPanel {
         panel.add(progressBar);
         return panel;
     }
-
-
 }

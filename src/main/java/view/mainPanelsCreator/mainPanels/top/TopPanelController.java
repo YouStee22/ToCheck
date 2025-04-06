@@ -8,7 +8,8 @@ public class TopPanelController {
 
     public JPanel top_panel;
 
-    private JButton speed_button;                                    //Czy inicjalizować tutaj pola czy konstruktor? (Konstruktor)
+    private JButton speed_button;
+
     private JButton stop_button;
 
     private Label points_label;
@@ -58,17 +59,14 @@ public class TopPanelController {
         return time_buttons;
     }
 
-
     public void addSpeedButtonListener(ActionListener listener) {
         speed_button.addActionListener(listener);
     }
 
-    public void setPlayButton() {                                                       //Przeniesienie 4 matod z MainView tutaj
-        if (stop_button.getText().equals("PLAY"))
-            stop_button.setText("PAUSE");
-        else
-            stop_button.setText("PLAY");
+    public void setPlayButton() {
+        stop_button.setText(stop_button.getText().equals("PLAY") ? "PAUSE" : "PLAY");                           //operator trójargumentowy
     }
+
 
     public void addPauseButtonListener(ActionListener listener) {
         stop_button.addActionListener(listener);

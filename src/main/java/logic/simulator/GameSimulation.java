@@ -31,7 +31,6 @@ public class GameSimulation {
 
     private ProgressBarDecreaser decreaser;
 
-
     public GameSimulation(TimeObserver timeObserver) {
         this.timeObserver = timeObserver;
         calendar = Calendar.getInstance();
@@ -41,7 +40,6 @@ public class GameSimulation {
     }
 
     private void monitorCountries1() {
-
         while (isMonitoringActive) {
             try {
                 Thread.sleep(UPDATE_SPEED);
@@ -68,7 +66,6 @@ public class GameSimulation {
         timeObserver.setDate(dateTimeString);
     }
 
-
     public void toggleMonitoring() {                                 //toggle  - Włacz wyłącz
         if (!isMonitoringActive) {
             getTimer().start();
@@ -90,17 +87,13 @@ public class GameSimulation {
                 }
             }
         }
-
         System.out.println(timer.isRunning());
     }
-
 
     public void setCalendar() {
         setTimer(new Timer(getTimeSpeed(), e -> updateTime()));
         getTimer().start();
     }
-
-
 
     public Timer getTimer() {
         return timer;
@@ -114,12 +107,10 @@ public class GameSimulation {
         return TIME_SPEED;
     }
 
-
     public void setTimeSpeedAndUpdate(int timeSpeed, int update) {
         TIME_SPEED = timeSpeed;
         UPDATE_SPEED = update;
     }
-
 
     public Calendar getCalendar() {
         return calendar;

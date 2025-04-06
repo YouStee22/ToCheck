@@ -5,6 +5,7 @@ import designPatterns.Observer;
 import javax.swing.*;
 
 public class ProgressObserver implements Observer<Integer> {
+
     private JProgressBar progressBar;
 
     public ProgressObserver(JProgressBar progressBar) {
