@@ -1,4 +1,4 @@
-package models;
+package view.mainPanelsCreator.mainPanels.mid;
 
 import designPatterns.Observer;
 

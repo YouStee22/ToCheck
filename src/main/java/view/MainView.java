@@ -18,7 +18,7 @@ public class MainView extends JFrame implements Observer<String> {
 
     private JLabel timeLabel;
 
-    public MainView() {
+    public MainView(String[] countries) {
         timeLabel = new JLabel();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,7 +28,7 @@ public class MainView extends JFrame implements Observer<String> {
 
         top = new TopPanelController(timeLabel);
         mainPanelController = new MainPanelController(this);
-        middlePanel = new MiddlePanel();
+        middlePanel = new MiddlePanel(countries);
 
         mainPanelController.setTopPanel(top.addTime());
         mainPanelController.setMiddleGrid(middlePanel);
@@ -38,8 +38,12 @@ public class MainView extends JFrame implements Observer<String> {
         return top;
     }
 
+    public MiddlePanel getMiddlePanel() {
+        return middlePanel;
+    }
+
     public void updateProgressBar(int progressBar) {
-        middlePanel.updateProgress(progressBar);
+        middlePanel.update(progressBar);
     }
 
     @Override

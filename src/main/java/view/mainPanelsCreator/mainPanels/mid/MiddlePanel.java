@@ -1,7 +1,6 @@
 package view.mainPanelsCreator.mainPanels.mid;
 
 import designPatterns.Observer;
-import models.ProgressObserver;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,25 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MiddlePanel extends JPanel {
+public class MiddlePanel extends JPanel implements Observer<Integer> {
 
-    private String[] countires;
+    private List<Observer<Integer>> progressBarObservers;
 
-    private List<Observer<Integer>> observers;
+    public MiddlePanel(String[] countries) {
+        progressBarObservers = new ArrayList<>();
+        setLayout(new GridLayout(3, 2, 5, 5));
 
-    public MiddlePanel() {
-        countires = new String[]{"Poland", "UK", "Germany", "Austria", "Russia", "Ukraine"};
-        observers = new ArrayList<>();
-        setLayout(new GridLayout(3, 2, 5, 5)); // 6 rows, 1 column with spacing
-
-        for (int i = 0; i < countires.length; i++) {
-            add(createProgressComponent(countires[i]));
+        for (String country : countries) {
+            add(createProgressComponent(country));
         }
     }
 
-    public void updateProgress(int index) {                                       //No mistrzostwo :>>>>
-        if (index >= 0 && index < observers.size()) {
-            observers.get(index).update(null);
+    @Override
+    public void update(Integer index) {
+        if (index >= 0 && index < progressBarObservers.size()) {
+            progressBarObservers.get(index).update(null);
         }
     }
 
@@ -40,8 +37,8 @@ public class MiddlePanel extends JPanel {
         label.setAlignmentX(Component.CENTER_ALIGNMENT);
         JProgressBar progressBar = new JProgressBar();
 
-        ProgressObserver observer = new ProgressObserver(progressBar);                      //Dodanie do wzroca
-        observers.add(observer);
+        ProgressObserver observer = new ProgressObserver(progressBar);
+        progressBarObservers.add(observer);
 
         progressBar.setValue(100);
         progressBar.setStringPainted(true);

@@ -1,10 +1,14 @@
 package controller;
 
+import designPatterns.Observable;
+import designPatterns.Observer;
 import logic.simulator.GameSimulation;
 import logic.simulator.ProgressBarDecreaser;
 import view.MainView;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,13 +16,15 @@ import java.util.TimerTask;
 public class MainController {
 
     private MainView mainView;
+
     private GameSimulation gameSimulation;
-    private ProgressBarDecreaser decreaser;
+
+//    private ProgressBarDecreaser decreaser;
 
     public MainController(MainView mainView, GameSimulation gameSimulation) {
         this.mainView = mainView;
         this.gameSimulation = gameSimulation;
-        this.decreaser = new ProgressBarDecreaser();
+//        this.decreaser = new ProgressBarDecreaser();
 
         mainView.getTopPanelController().addSpeedButtonListener(e -> handleSpeedButtonClick());
 
@@ -30,18 +36,25 @@ public class MainController {
             gameSimulation.toggleMonitoring();
         });
 
-        executeTask();
+//        executeTask();                                                        //przed
+        gameSimulation.addObserver(mainView.getMiddlePanel());
+        gameSimulation.executeTask();
+
     }
 
-    public void executeTask() {                                                 //Jak to przenieść do GameSimulation? bo wtedy nie będzie
-        Timer timer = new Timer();                                              //dostepu do mainView? Czy GameSimulation powinno wiedzieć o
-        timer.scheduleAtFixedRate(new TimerTask() {                             // mainView?
-            @Override
-            public void run() {
-                mainView.updateProgressBar(decreaser.countryChooser());
-            }
-        }, 0, 150);
-    }
+
+//    public void executeTask() {                                                 //Jak to przenieść do GameSimulation? bo wtedy nie będzie
+//        java.util.Timer timer = new java.util.Timer();                                              //dostepu do mainView? Czy GameSimulation powinno wiedzieć o
+//        timer.scheduleAtFixedRate(new TimerTask() {                             // mainView?
+//            @Override
+//            public void run() {
+////                mainView.updateProgressBar(decreaser.countryChooser());
+//            }
+//        }, 0, 150);
+//    }
+
+
+
 
     private void handleSpeedButtonClick() {
         if (gameSimulation.getTimeSpeed() == 1000) {

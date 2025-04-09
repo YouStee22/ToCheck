@@ -2,20 +2,23 @@ package logic.simulator;
 
 
 
-import models.ProgressObserver;
-import models.TimeObserver;
+import designPatterns.Observable;
+import designPatterns.Observer;
+import view.mainPanelsCreator.mainPanels.top.TimeObserver;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimerTask;
+import java.util.*;
 
 
+public class GameSimulation implements Observable {
 
-public class GameSimulation {
+    private final List<Observer<Integer>> observers = new ArrayList<>();
 
     private int TIME_SPEED = 1000, UPDATE_SPEED = 2000;
+
+    private int countries;
 
     private Timer timer;
 
@@ -31,12 +34,34 @@ public class GameSimulation {
 
     private ProgressBarDecreaser decreaser;
 
-    public GameSimulation(TimeObserver timeObserver) {
+    public GameSimulation(TimeObserver timeObserver, int countires) {
+        this.countries = countires;
         this.timeObserver = timeObserver;
         calendar = Calendar.getInstance();
         calendar.set(2000, Calendar.JANUARY, 1, 0, 0, 0);
         decreaser = new ProgressBarDecreaser();
+    }
 
+    public void executeTask() {
+        java.util.Timer timer = new java.util.Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                notifyObservers();
+            }
+        }, 0, 150);
+    }
+
+    @Override
+    public void notifyObservers() {
+        for (Observer<Integer> observer : observers) {
+            observer.update(decreaser.countryChooser(countries));
+        }
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
     }
 
     private void monitorCountries1() {
